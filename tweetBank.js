@@ -1,8 +1,8 @@
 var _ = require('lodash');
-var data = [{name: "Connie Lee", content: "TWEETTWEET"}, {name: "Connie Lee", content: "hello"}];
-
+var data = [{name: "Connie Lee", content: "TWEETTWEET", id: 1}, {name: "Connie Lee", content: "hello", id: 2}];
+counter = 3;
 function add (name, content) {
-  data.push({ name: name, content: content });
+  data.push({ name: name, content: content, id: counter++ });
 }
 
 function list () {
@@ -37,5 +37,7 @@ var getFakeTweet = function() {
 };
 
 for (var i = 0; i < 10; i++) {
-  add( getFakeName(), getFakeTweet() );
+  add( getFakeName(), getFakeTweet());
 }
+
+console.log(find({id: 12}));

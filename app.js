@@ -2,6 +2,9 @@ var express = require( 'express' );
 var swig = require('swig');
 var routes = require('./routes/');
 var app = express(); // creates an instance of an express application
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
+var urlParser = bodyParser.urlencoded();
 
 //SWIG STUFF
 swig.setDefaults({ cache: false });
@@ -15,6 +18,9 @@ app.use(function(req, res, next) {
 	console.log(req.method, req.url);
 	next();
 });
+
+app.use(jsonParser);
+app.use(urlParser);
 
 app.use(function(req, res, next) {
 	if (req.url === '/special') {
