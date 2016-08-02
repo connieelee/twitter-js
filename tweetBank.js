@@ -39,5 +39,3 @@ var getFakeTweet = function() {
 for (var i = 0; i < 10; i++) {
   add( getFakeName(), getFakeTweet());
 }
-
-console.log(find({id: 12}));

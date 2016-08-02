@@ -1,10 +1,13 @@
 var express = require( 'express' );
+var socketio = require('socket.io');
 var swig = require('swig');
 var routes = require('./routes/');
 var app = express(); // creates an instance of an express application
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
-var urlParser = bodyParser.urlencoded();
+var urlParser = bodyParser.urlencoded( { extended: false });
+var server = app.listen(5000);
+var io = socketio.listen(server);
 
 //SWIG STUFF
 swig.setDefaults({ cache: false });
@@ -29,26 +32,10 @@ app.use(function(req, res, next) {
 	next();
 })
 
+
 app.use(express.static('public'));
-app.use('/', routes);
-
-//ROUTING
-
-
-//---------old routes--------
-// var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
-// app.get('/views', function(req, res) {
-// 	res.render( 'index', {title: 'Hall of Fame', people: people} );
-// })
-
-
-// app.get('/', function(req, res) {
-// 	res.send("Welcome to twitter (rip-off)")
-// })
-// --------------------------
+app.use('/', routes(io));
 
 
 
 
-
-app.listen(3000);
