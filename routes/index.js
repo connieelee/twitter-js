@@ -6,11 +6,19 @@ var tweetBank = require('../tweetBank');
 
 router.get('/', function (req, res) {
   var tweets = tweetBank.list();
-  res.render( 'index', { title: 'Many tweets about Fullstack', tweets: tweets } );
+  res.render( 'index', {tweets: tweets});
 });
 
-router.get('/stylesheets/style.css', function(req, res) {
-	res.sendFile(process.cwd() + '/public/stylesheets/style.css');
+router.get('/users/:name', function(req,res) {
+	var name = req.params.name;
+	var tweets = tweetBank.find(function(tweetObj) {
+		return tweetObj.name === name;
+	});
+	res.render('index', {tweets: tweets});
 })
+
+// router.get('/stylesheets/style.css', function(req, res) {
+// 	res.sendFile(process.cwd() + '/public/stylesheets/style.css');
+// })
 
 module.exports = router;

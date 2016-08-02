@@ -4,11 +4,10 @@ var routes = require('./routes/');
 var app = express(); // creates an instance of an express application
 
 //SWIG STUFF
+swig.setDefaults({ cache: false });
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
-swig.setDefaults({ cache: false });
-
 
 // MIDDLEWARE
 //logger
